@@ -10,7 +10,8 @@ Bundle-Activator: org.openhab.binding.vera.internal.VeraActivator
 Bundle-ManifestVersion: 2
 Bundle-Description: This is the Vera binding of the open Home Aut
  omation Bus (openHAB)
-Import-Package: org.apache.commons.lang,
+Import-Package: net.whistlingfish.openhab.binding,
+ org.apache.commons.lang,
  org.openhab.core.binding,
  org.openhab.core.events,
  org.openhab.core.items,
