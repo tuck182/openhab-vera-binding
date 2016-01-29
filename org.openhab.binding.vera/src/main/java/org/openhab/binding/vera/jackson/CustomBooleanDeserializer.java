@@ -2,13 +2,14 @@ package org.openhab.binding.vera.jackson;
 
 import java.io.IOException;
 import java.util.regex.Pattern;
-import static java.util.regex.Pattern.*;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+
+import static java.util.regex.Pattern.CASE_INSENSITIVE;
 
 public class CustomBooleanDeserializer extends JsonDeserializer<Boolean> {
 

@@ -1,95 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <parent>
-        <groupId>org.openhab.bundles</groupId>
-        <artifactId>binding</artifactId>
-        <version>1.5.1</version>
-    </parent>
+  <parent>
+    <groupId>org.openhab.bundles</groupId>
+    <artifactId>binding</artifactId>
+    <version>1.5.1</version>
+    <relativePath />
+  </parent>
 
-    <properties>
-        <bundle.symbolicName>org.openhab.binding.vera</bundle.symbolicName>
-        <bundle.namespace>org.openhab.binding.vera</bundle.namespace>
-        <deb.name>openhab-addon-binding-Vera</deb.name>
-        <deb.description>openhab addon binding Vera</deb.description>
-    </properties>
+  <properties>
+    <bundle.symbolicName>org.openhab.binding.vera</bundle.symbolicName>
+    <bundle.namespace>org.openhab.binding.vera</bundle.namespace>
+    <deb.name>openhab-addon-binding-Vera</deb.name>
+    <deb.description>openhab addon binding Vera</deb.description>
+  </properties>
 
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.openhab.binding</groupId>
-    <artifactId>org.openhab.binding.vera</artifactId>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.openhab.binding</groupId>
+  <artifactId>org.openhab.binding.vera</artifactId>
 
-    <name>openHAB Vera Binding</name>
+  <name>openHAB Vera Binding</name>
 
-    <packaging>eclipse-plugin</packaging>
+  <packaging>eclipse-plugin</packaging>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.vafer</groupId>
-                <artifactId>jdeb</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.8</version>
-                <configuration>
-                    <outputDirectory>${basedir}/lib</outputDirectory>
-                    <overWriteReleases>false</overWriteReleases>
-                    <overWriteSnapshots>true</overWriteSnapshots>
-                    <overWriteIfNewer>true</overWriteIfNewer>
-                    <!-- <includeArtifactIds>wasync</includeArtifactIds> -->
-                    <includeScope>provided</includeScope>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>${tycho-groupid}</groupId>
+        <artifactId>tycho-compiler-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <sourceDir>src/main/java</sourceDir>
+          <scalaVersion>2.11.2</scalaVersion>
+        </configuration>
+        <executions>
+          <execution>
+            <id>scala-compile-first</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>add-source</goal>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>scala-test-compile</id>
+            <phase>process-test-resources</phase>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
-            <version>2.11.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.spray</groupId>
-            <artifactId>spray-client_2.11</artifactId>
-            <version>1.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-            <version>4.3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.3.5</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>17.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.4.2</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-scala_2.11</artifactId>
-            <version>2.4.2</version>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <!-- <dependency> <groupId>com.typesafe.akka</groupId> <artifactId>akka-actor_2.11</artifactId> 
+      <version>2.3.5</version> <scope>provided</scope> </dependency> <dependency> 
+      <groupId>org.scala-lang</groupId> <artifactId>scala-library</artifactId> 
+      <version>2.11.2</version> <scope>provided</scope> </dependency> <dependency> 
+      <groupId>io.spray</groupId> <artifactId>spray-client_2.11</artifactId> <version>1.3.1</version> 
+      <scope>provided</scope> </dependency> <dependency> <groupId>io.spray</groupId> 
+      <artifactId>spray-json_2.11</artifactId> <version>1.2.6</version> <scope>provided</scope> 
+      </dependency><dependency> <groupId>com.google.guava</groupId> <artifactId>guava</artifactId> 
+      <version>17.0</version> </dependency> <dependency> <groupId>com.fasterxml.jackson.core</groupId> 
+      <artifactId>jackson-databind</artifactId> <version>2.4.2</version> <scope>provided</scope> 
+      </dependency> <dependency> <groupId>com.fasterxml.jackson.module</groupId> 
+      <artifactId>jackson-module-scala_2.11</artifactId> <version>2.4.2</version> 
+      </dependency> -->
+  </dependencies>
 </project>

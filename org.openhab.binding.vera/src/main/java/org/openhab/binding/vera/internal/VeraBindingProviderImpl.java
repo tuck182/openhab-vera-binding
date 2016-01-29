@@ -21,8 +21,11 @@ public class VeraBindingProviderImpl extends
         AnnotationBasedBindingProvider<VeraBindingConfig, VeraBinding, VeraBindingProviderImpl> implements
         VeraBindingProvider {
 
+    @SuppressWarnings("unchecked")
     public VeraBindingProviderImpl() {
-        super(VeraBindingConfig.class, ReadSwitchStateBindingConfig.class);
+        super(VeraBindingConfig.class, //
+                ReadDeviceStateBindingConfig.class, //
+                WriteDeviceStateBindingConfig.class);
     }
 
     /**
